@@ -6,6 +6,7 @@ import {
 } from '@testing-library/testcafe';
 
 import config from '../config';
+import { getLocation } from '../utils';
 
 fixture('<IndexPage />').page(config.baseURL);
 
@@ -132,6 +133,41 @@ test('Can execute an exchange via full balance currency switch', async (t) => {
     .ok('Should add to target amount');
 });
 
+test.only('Can execute multiple sequential trades', async (t) => {
+  const exchangeButton = getByText('Exchange');
+  const doneButton = getByText('Done');
+  const inputSelector = getAllByPlaceholderText('0');
+  const originInput = inputSelector.nth(0);
+  const targetInput = inputSelector.nth(1);
+
+  await t
+    .typeText(originInput, '100')
+    .click(exchangeButton)
+    .click(doneButton)
+    .expect(getByText('Balance: kr9,900').visible)
+    .ok('Should subtract from balance')
+    .click(originInput)
+    .selectText(originInput)
+    .pressKey('delete')
+    .typeText(originInput, '200')
+    .click(exchangeButton)
+    .click(doneButton)
+    .expect(getByText('Balance: kr9,700').visible)
+    .ok('Should subtract from balance')
+    .click(getByText('EUR'))
+    .typeText(getAllByPlaceholderText('').nth(0), 'United')
+    .click(getByText('United Arab Emirates Dirham'))
+    .click(getByTestId('currency-switch'))
+    .click(targetInput)
+    .selectText(targetInput)
+    .pressKey('delete')
+    .typeText(targetInput, '300.01')
+    .click(exchangeButton)
+    .click(doneButton)
+    .expect(getByText('Balance: kr10,000', { exact: false }).visible)
+    .ok('Should come back to original balance');
+});
+
 test('Can not exchange amounts that exceed balance', async (t) => {
   const exchangeButton = getByText('Exchange');
   const inputSelector = getAllByPlaceholderText('0');
@@ -144,4 +180,19 @@ test('Can not exchange amounts that exceed balance', async (t) => {
     .typeText(originInput, '01')
     .expect(exchangeButton.hasAttribute('disabled'))
     .ok('Exchange button should be disabled');
+});
+
+test('Can navigate to historical and back', async (t) => {
+  await t
+    .click(getByText('NOK'))
+    .typeText(getAllByPlaceholderText('').nth(0), 'United')
+    .click(getByText('United Arab Emirates Dirham'))
+    .click(getByText('1AED = €0.24', { exact: false }))
+    .expect(getLocation())
+    .eql(`${config.baseURL}/historical?from=AED&to=EUR`, 'URL address should indicate currencies')
+    .expect(queryByText('AED → EUR').visible)
+    .ok('Should display appropriate exchange')
+    .click(getByTestId('navigate-back'))
+    .expect(queryByText('Balance: AED10,000').visible)
+    .ok('Should still display AED currency');
 });

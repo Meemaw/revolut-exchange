@@ -55,7 +55,7 @@ const ExchangeRateHistory = ({ exchangeRate, origin, target }: Props) => {
   return (
     <>
       <Link to={`/?from=${origin}&to=${target}`}>
-        <Button kind="minimal" $style={{ position: 'absolute' }}>
+        <Button kind="minimal" $style={{ position: 'absolute' }} data-testid="navigate-back">
           <ArrowLeft size={theme.sizing.scale900} />
         </Button>
       </Link>
