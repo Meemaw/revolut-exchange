@@ -3,7 +3,6 @@ import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/do
 import { styletron, STYLETRON_HYDRATE_CLASSNAME } from 'shared/styles/styletron';
 import { Server, Sheet } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
-import ThemeProvider from 'shared/containers/ThemeProvider';
 
 type Props = {
   stylesheets: Sheet[];
@@ -13,9 +12,7 @@ class InsightDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext) {
     const page = ctx.renderPage((App) => (props) => (
       <StyletronProvider value={styletron}>
-        <ThemeProvider>
-          <App {...props} />
-        </ThemeProvider>
+        <App {...props} />
       </StyletronProvider>
     ));
 
