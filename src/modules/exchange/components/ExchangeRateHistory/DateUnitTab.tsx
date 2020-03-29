@@ -21,6 +21,12 @@ const DateUnitTab = ({ unit, active = false, amount = 1, onClick }: Props) => {
         borderTopWidth: active ? theme.sizing.scale0 : '1px',
         borderTopColor: active ? theme.colors.black : theme.colors.primary400,
         width: '100%',
+        '@media screen and (max-width: 680px)': {
+          padding: theme.sizing.scale0,
+        },
+        '@media screen and (max-width: 880px)': {
+          padding: theme.sizing.scale100,
+        },
       }}
       onClick={onClick}
     >
