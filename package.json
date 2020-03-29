@@ -24,7 +24,8 @@
     "eslint": "eslint --max-warnings 0 'src/**/*.{ts,tsx}' 'e2e/**/*.{ts,tsx}' --config .eslintrc.production.js",
     "prettier": "prettier -l 'src/**/*' 'e2e/**/*'",
     "prettier:fix": "prettier -l 'src/**/*' 'e2e/**/*' --write",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook -p 6006",
+    "storybook:build": "build-storybook"
   },
   "dependencies": {
     "baseui": "^9.65.3",

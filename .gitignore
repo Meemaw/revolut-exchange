@@ -12,3 +12,6 @@ artifacts
 # Serveless
 .serverless
 .serverless_nextjs
+
+# Storybook
+storybook-static
