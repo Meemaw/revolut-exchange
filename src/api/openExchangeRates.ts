@@ -28,7 +28,7 @@ const openExchangeRateApiMockImplementation: OpenExchangeRateApi = {
       if (callCount > 0) {
         currentRates = applyNoise(currentRates, noiseFactor);
       }
-      callCount++;
+      callCount += 1;
       return new Promise<ExchangeRates>((resolve) =>
         setTimeout(() => resolve(currentRates), MOCK_API_TIMEOUT_MILLIS)
       );

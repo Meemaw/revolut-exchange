@@ -32,6 +32,7 @@ const CurrencyView = ({
   autoFocus = false,
 }: Props) => {
   const balanceExceeded = startEnhancer === '-' && Number(value) > balance;
+  const inputWidth = Math.min((value.length + 1) * 10, 200);
 
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     onValueChange(event.currentTarget.value);
@@ -58,6 +59,7 @@ const CurrencyView = ({
             value={value}
             onChange={onChange}
             size="large"
+            overrides={{ Input: { style: { width: `${inputWidth}px` } } }}
           />
         </SpacedBetween>
 

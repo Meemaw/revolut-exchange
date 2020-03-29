@@ -37,7 +37,7 @@ const ExchangeCompletedScreen = ({ onDone, origin, target }: Props) => {
               color={color}
               overrides={{
                 Svg: {
-                  style: { borderRadius: '50%', border: `3px solid ${color}` },
+                  style: { borderRadius: '50%', border: `${theme.sizing.scale0} solid ${color}` },
                 },
               }}
             />

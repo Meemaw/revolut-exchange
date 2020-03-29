@@ -17,6 +17,8 @@ export const Base = () => {
       balances={balances}
       rates={USD_BASE_EXCHANGE_RATES}
       updateBalances={setBalances}
+      origin="NOK"
+      target="EUR"
     />
   );
 };

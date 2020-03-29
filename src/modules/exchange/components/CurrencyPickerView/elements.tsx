@@ -14,10 +14,10 @@ export const SectionParagraph = styled(Paragraph4, (props) => ({
 
 export const flagComponent = (currencies: Currencies, currency: CurrencyCode) => {
   const { countryCode } = currencies[currency];
-  const widht = '16px';
+  const width = '16px';
   let FlagComponent: React.ReactNode;
   if (countryCode === 'EU') {
-    FlagComponent = <FlagEU width={widht} />;
+    FlagComponent = <FlagEU width={width} />;
   } else {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     FlagComponent = <Flag iso={countryCode as any} />;
