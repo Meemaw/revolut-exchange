@@ -174,9 +174,13 @@ export const USD_BASE_EXCHANGE_RATES = {
   ZWL: 322.000001,
 } as ExchangeRates;
 
+export const applyNoiseToValue = (value: number, factor) => {
+  const appliedFactor = Math.random() < 0.5 ? 1 - factor : 1 + factor;
+  return appliedFactor * value;
+};
+
 export const applyNoise = (rates: ExchangeRates, factor: number) => {
   return Object.keys(rates).reduce((acc, currency) => {
-    const appliedFactor = Math.random() < 0.5 ? 1 - factor : 1 + factor;
-    return { ...acc, [currency]: rates[currency] * appliedFactor };
+    return { ...acc, [currency]: applyNoiseToValue(rates[currency], factor) };
   }, {} as ExchangeRates);
 };

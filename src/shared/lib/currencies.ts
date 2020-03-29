@@ -1,4 +1,5 @@
 import { ExchangeRates } from 'api/openExchangeRates';
+import { ParsedUrlQuery } from 'querystring';
 
 export const CURRENCIES = {
   AED: {
@@ -76,4 +77,11 @@ export const calculateTarget = (originValue: number, exchangeRate: number) => {
 
 export const calculateTargetValue = (originValue: string, exchangeRate: number): string => {
   return calculateTarget(Number(originValue), exchangeRate).toFixed(2);
+};
+
+export const parseQueryCurrencies = (query: ParsedUrlQuery) => {
+  const { from = 'NOK', to = 'EUR' } = query;
+  const origin = from as CurrencyCode;
+  const target = to as CurrencyCode;
+  return { origin, target };
 };

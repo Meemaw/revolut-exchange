@@ -34,17 +34,19 @@ type StateAction =
       targetCurrencyInputFocused: boolean;
     };
 
-const INITIAL_STATE = {
-  originCurrency: 'NOK' as CurrencyCode,
-  originValue: '' as string,
-  targetCurrency: 'EUR' as CurrencyCode,
-  targetValue: '' as string,
-  rates: {} as ExchangeRates,
-  exchangeRate: 1 as number,
-  recents: new Set(['NOK', 'EUR']) as Set<CurrencyCode>,
-} as const;
+const getInitialState = (originCurrency: CurrencyCode, targetCurrency: CurrencyCode) => {
+  return {
+    originCurrency,
+    originValue: '' as string,
+    targetCurrency,
+    targetValue: '' as string,
+    rates: {} as ExchangeRates,
+    exchangeRate: 1 as number,
+    recents: new Set([originCurrency, targetCurrency]) as Set<CurrencyCode>,
+  };
+};
 
-type State = typeof INITIAL_STATE;
+type State = ReturnType<typeof getInitialState>;
 
 const stateReducer = (state: State, action: StateAction): State => {
   switch (action.type) {
@@ -141,10 +143,12 @@ export type UseExchangeOptions = {
   balances: Balances;
   rates: ExchangeRates;
   updateBalances: (newBalances: Balances) => void;
+  origin: CurrencyCode;
+  target: CurrencyCode;
 };
 
-const useExchange = ({ balances, rates, updateBalances }: UseExchangeOptions) => {
-  const [state, dispatch] = useReducer(stateReducer, INITIAL_STATE);
+const useExchange = ({ balances, rates, updateBalances, origin, target }: UseExchangeOptions) => {
+  const [state, dispatch] = useReducer(stateReducer, getInitialState(origin, target));
   const [targetCurrencyInputFocused, targetCurrencyInputRefFallback] = useFocus<HTMLInputElement>();
 
   useEffect(() => {

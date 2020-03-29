@@ -41,7 +41,7 @@ const NumberInput = ({ onChange, ...rest }: Props) => {
           },
         },
         StartEnhancer: {
-          style: { backgroundColor: 'transparent', color: '#000' },
+          style: { backgroundColor: 'transparent', color: theme.colors.black },
         },
       }}
       {...rest}

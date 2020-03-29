@@ -42,13 +42,9 @@ const ExchangeView = (props: Props) => {
 
       <StyledBottom>
         <CurrencySwitch onClick={switchCurrencies} />
+
         <StyledExchangeRateOverlay>
-          <ExchangeRate
-            from={originCurrency}
-            to={targetCurrency}
-            exchangeRate={exchangeRate}
-            onClick={console.log}
-          />
+          <ExchangeRate from={originCurrency} to={targetCurrency} exchangeRate={exchangeRate} />
         </StyledExchangeRateOverlay>
 
         <TargetCurrencyView
