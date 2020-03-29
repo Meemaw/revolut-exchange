@@ -72,6 +72,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * Released under the MIT License.
  */
 
+/*! https://mths.be/punycode v1.4.1 by @mathias */
+
 /** @license React v0.19.1
  * scheduler.production.min.js
  *
