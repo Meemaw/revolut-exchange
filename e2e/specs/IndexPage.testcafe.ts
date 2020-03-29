@@ -133,7 +133,7 @@ test('Can execute an exchange via full balance currency switch', async (t) => {
     .ok('Should add to target amount');
 });
 
-test.only('Can execute multiple sequential trades', async (t) => {
+test('Can execute multiple sequential trades', async (t) => {
   const exchangeButton = getByText('Exchange');
   const doneButton = getByText('Done');
   const inputSelector = getAllByPlaceholderText('0');
