@@ -7,7 +7,7 @@ import SpacedBetween from 'shared/components/flex/SpacedBetween';
 import { CurrencyCode } from 'shared/lib/currencies';
 import Link from 'shared/components/Link';
 
-import ExchangeRateHistoryStream from './ExchangeRateHistoryStream';
+import ExchangeRateHistoricalStream from './ExchangeRateHistoricalStream';
 import DateUnitTab from './DateUnitTab';
 import { SUPPORTED_GRANULARITIES } from './constants';
 import { generateHistoricalData } from './utils';
@@ -19,9 +19,9 @@ type Props = {
   target: CurrencyCode;
 };
 
-const ExchangeRateHistory = ({ exchangeRate, origin, target }: Props) => {
+const ExchangeRateHistorical = ({ exchangeRate, origin, target }: Props) => {
   const [granularity, setGranularity] = useState(SUPPORTED_GRANULARITIES[0]);
-  const [_, theme] = useStyletron();
+  const [css, theme] = useStyletron();
   const chartRef = useRef<{ element: HTMLDivElement; listener: () => void }>(null);
 
   const [data, lowest, highest] = useMemo(() => {
@@ -32,21 +32,22 @@ const ExchangeRateHistory = ({ exchangeRate, origin, target }: Props) => {
     return [nextData, nextLowest, nextHighest];
   }, [exchangeRate, granularity]);
 
+  /*
+   * We have to set it to avoid chart to reflow vertically in a flex layout
+   * Unfortunately @nivo/stream doesn't provide any more Reactish way of styling its container
+   */
   const chartWrapperCallback = useCallback((chartWrapper: HTMLDivElement | null) => {
     if (chartRef.current) {
       chartRef.current.element.removeEventListener('DOMSubtreeModified', chartRef.current.listener);
     }
-
     if (chartWrapper) {
       const listener = () => {
         const chartContainer = chartWrapper.firstElementChild
           .firstElementChild as HTMLElement | null;
         if (chartContainer) {
-          chartContainer.style.flex = 'flex: 1 1 0%;';
           chartContainer.style.display = 'flex';
         }
       };
-
       chartRef.current = { listener, element: chartWrapper };
       chartWrapper.addEventListener('DOMSubtreeModified', listener);
     }
@@ -67,8 +68,8 @@ const ExchangeRateHistory = ({ exchangeRate, origin, target }: Props) => {
         <PriceTag price={data[data.length - 1].value} tag="current" />
         <PriceTag price={highest} tag="highest" />
       </SpacedBetween>
-      <div style={{ flex: 1 }} ref={chartWrapperCallback}>
-        <ExchangeRateHistoryStream data={data} />
+      <div className={css({ flex: 1 })} ref={chartWrapperCallback}>
+        <ExchangeRateHistoricalStream data={data} />
       </div>
       <SpacedBetween>
         {SUPPORTED_GRANULARITIES.map((current) => (
@@ -84,4 +85,4 @@ const ExchangeRateHistory = ({ exchangeRate, origin, target }: Props) => {
   );
 };
 
-export default React.memo(ExchangeRateHistory);
+export default React.memo(ExchangeRateHistorical);

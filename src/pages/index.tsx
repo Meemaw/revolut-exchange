@@ -1,11 +1,12 @@
 import React from 'react';
-import ExchangeView from 'modules/exchange/components/ExchangeView';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import balanceApi from 'api/balance';
-import { Balances, CurrencyCode, parseQueryCurrencies } from 'shared/lib/currencies';
 import openExhangeRates, { ExchangeRates } from 'api/openExchangeRates';
+import { Balances, CurrencyCode, parseQueryCurrencies } from 'shared/lib/currencies';
 import useBalance from 'shared/hooks/useBalance';
 import useRates from 'shared/hooks/useRates';
+import ExchangeView from 'modules/exchange/components/ExchangeView';
 
 type Props = {
   balances: Balances;
@@ -22,13 +23,18 @@ const IndexPage = ({ balances: initialBalances, rates: initialRates, origin, tar
   const { data: rates } = useRates({ refreshInterval: 10, initialData: initialRates });
 
   return (
-    <ExchangeView
-      balances={balances}
-      rates={rates}
-      updateBalances={updateBalances}
-      origin={origin}
-      target={target}
-    />
+    <>
+      <Head>
+        <title>Exchange</title>
+      </Head>
+      <ExchangeView
+        balances={balances}
+        rates={rates}
+        updateBalances={updateBalances}
+        origin={origin}
+        target={target}
+      />
+    </>
   );
 };
 

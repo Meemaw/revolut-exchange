@@ -2,15 +2,15 @@ import React from 'react';
 import { USD_BASE_EXCHANGE_RATES } from 'test/mocks/exchangeRates';
 import { configureStory } from 'storybook/utils';
 import fullHeightDecorator from 'storybook/utils/fullHeightDecorator';
-import ExchangeRateHistory from './ExchangeRateHistory';
+import ExchangeRateHistorical from './ExchangeRateHistorical';
 
 export default {
-  title: 'ExchangeRateHistory',
+  title: 'ExchangeRateHistorical',
 };
 
 export const Base = () => {
   return (
-    <ExchangeRateHistory exchangeRate={USD_BASE_EXCHANGE_RATES.EUR} origin="NOK" target="EUR" />
+    <ExchangeRateHistorical exchangeRate={USD_BASE_EXCHANGE_RATES.EUR} origin="NOK" target="EUR" />
   );
 };
 Base.story = configureStory({
