@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'test/utils';
 import { USD_BASE_EXCHANGE_RATES } from 'test/mocks/exchangeRates';
-import { Base } from './ExchangeRateHistory.stories';
+import { Base } from './ExchangeRateHistorical.stories';
 
-describe('<ExchangeRateHistory />', () => {
+describe('<ExchangeRateHistorical />', () => {
   it('Should render graph & its controls', () => {
     const { queryByText } = render(<Base />);
 

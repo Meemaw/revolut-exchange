@@ -39,4 +39,7 @@ Revolut like exchange UI implementation using:
 ➜ yarn dev
 ```
 
-###### Mock API will be used when `process.env.NODE_ENV !== 'production'` to avoid free quota usage.
+## Notes
+
+- Mock API will be used when `process.env.NODE_ENV !== 'production'` to avoid free quota usage.
+- Historical data is totally mocked as it is not available for free users.

@@ -32,7 +32,10 @@ const CurrencyView = ({
   autoFocus = false,
 }: Props) => {
   const balanceExceeded = startEnhancer === '-' && Number(value) > balance;
-  const inputWidth = Math.min((value.length + 1) * 10, 200);
+  const inputWidth = Math.min(
+    (value.length + 1) * 10,
+    typeof window === 'undefined' ? 200 : window.innerWidth - 200
+  );
 
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     onValueChange(event.currentTarget.value);

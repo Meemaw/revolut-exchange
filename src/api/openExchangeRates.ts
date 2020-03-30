@@ -39,7 +39,9 @@ const openExchangeRateApiMockImplementation: OpenExchangeRateApi = {
 const openExhangeRateApi: OpenExchangeRateApi = {
   latest: () =>
     ky
-      .get('https://openexchangerates.org/api/latest.json?app_id=95006d6af8ab4680bfb92c2059b6a8df')
+      .get(
+        `https://openexchangerates.org/api/latest.json?app_id=${process.env.openExchangeRateAppId}`
+      )
       .json<LatestExchangeRatesResponse>()
       .then((response) => response.rates),
 };

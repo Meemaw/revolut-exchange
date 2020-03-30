@@ -24,7 +24,7 @@ const CurrencyPickerView = ({
   currencies: allCurrencies = CURRENCIES,
   recents: recentCurrencies = new Set(),
 }: Props) => {
-  const [css] = useStyletron();
+  const [css, theme] = useStyletron();
   const [searchQuery, setSearchQuery] = useState('');
 
   const [recents, others] = useMemo(
@@ -69,9 +69,9 @@ const CurrencyPickerView = ({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.currentTarget.value)}
           overrides={{
-            Input: { style: { backgroundColor: '#fff' } },
+            Input: { style: { backgroundColor: theme.colors.white } },
             InputContainer: { style: { borderWidth: '0px' } },
-            ClearIconContainer: { style: { backgroundColor: '#fff' } },
+            ClearIconContainer: { style: { backgroundColor: theme.colors.white } },
           }}
         />
       </Flex>
